@@ -19,18 +19,19 @@
 // Create a card for each of the articles and add the card to the DOM.
 axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
 
-.then(data => {
-  console.log('data', data)
+.then(carddata => {
+  console.log('data', carddata)
   const cards = document.querySelector('.cards-container')
-  console.log(data.data.articles)
-  data.data.articles.forEach(topic => {
-      topic.forEach(card =>{
-        topic.appendChild(cardConstructor(card))
-      })
-    cards.appendChild(topic)
+  //console.log(carddata.data.articles)
+  Object.values(carddata.data.articles).forEach(topic => {
+      console.log(topic)
+     topic.forEach(card =>{
+      console.log(topic)
+        cards.appendChild(cardConstructor(card))
+  })
+    //cards.appendChild(topic)
   })
 })
-
 .catch(error => {
   console.log('The API is currently down, try again later', error)
 })
@@ -58,4 +59,5 @@ function cardConstructor(article){
     headline.textContent = article.headline
     img.src = article.authorPhoto
     by.textContent =`By ${article.authorName}`
+    return card
 }
